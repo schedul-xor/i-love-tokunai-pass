@@ -1,17 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import TokunaiMeter from './components/TokunaiMeter';
+import RowInput from './components/RowInput';
+import Rows from './components/Rows';
+import {connect} from 'react-redux';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      </header>
+      <div>
+        <h1>Tokunai pass tester</h1>
+        <Rows/>
+        <RowInput/>
+        <TokunaiMeter/>
     </div>
   );
 }
 
-export default App;
+export default connect((state)=>{
+    return {};
+})(App);
