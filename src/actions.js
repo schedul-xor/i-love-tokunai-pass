@@ -1,7 +1,35 @@
 import OpenJprailFares from './openjprailfares';
 
-export const onStationQueryUpdate = (partialStation,isFrom) => {
-    const stations = OpenJprailFares.stationsWithPrefix(partialStation);
-    console.log(stations);
-    return {};
+export const onStationQueryUpdate = (query,isFrom) => {
+    let stationIds = [];
+    if(query !== ''){
+        stationIds = OpenJprailFares.stationsWithPrefix(query);
+    }
+    return {
+        type: 'STATION_SEARCH_RESULTS',
+        payload:{
+            isFrom: isFrom,
+            stationIds: stationIds,
+            query: query
+        }
+    };
+};
+
+export const onStationIdxSelect = (idx,isFrom) => {
+    return {
+        type: 'STATION_IDX_SELECTED',
+        payload: {
+            idx: idx,
+            isFrom: isFrom
+        }
+    };
+};
+
+export const onAddRow = (addedRow) => {
+    return {
+        type: 'ROW_ADDED',
+        payload: {
+            addedRow: addedRow
+        }
+    };
 };

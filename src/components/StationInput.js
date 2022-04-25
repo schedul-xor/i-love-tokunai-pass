@@ -8,7 +8,7 @@ class StationInput extends Component{
     }
     
     render(){
-        return (<input type="text" onChange={(e)=>{this.__onChange(e);}}/>);
+        return (<input type="text" value={this.props.value} onChange={(e)=>{this.__onChange(e);}}/>);
     }
 }
 
