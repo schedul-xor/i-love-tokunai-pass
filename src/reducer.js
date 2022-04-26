@@ -1,5 +1,18 @@
+import OpenJprailFares from './openjprailfares';
+
+const generateFares = (newRows,fares,isIc) => {
+        var fareSum = 0;
+        for(var i = 0;i < newRows.length;i++){
+            var o = newRows[i];
+            var fare = OpenJprailFares.fareBetweenStations(o.fromStationId,o.toStationId,isIc);
+            fares.push(fare);
+            fareSum += fare;
+        }
+    return fareSum;
+};
+
 export default(state={
-    rows: [],
+    isIc: false,
     fromQuery: '',
     toQuery: '',
     fromStationIds: [],
@@ -7,6 +20,10 @@ export default(state={
     selectedFromStationIdx: 0,
     selectedToStationIdx: 0,
     
+    rows: [],
+
+    fares: [],
+    fareSum: 0
 },action)=>{
     switch(action.type){
         
@@ -43,17 +60,57 @@ export default(state={
         break;
 
     case 'ROW_ADDED':
-        const newRows = state.rows.slice();
-        // {fromStationId : ?, toStationId : ?}
-        newRows.push(action.payload.addedRow);
-        return {
-            ...state,
-            rows: newRows,
-            fromQuery: '',
-            toQuery: '',
-            fromStationIds: [],
-            toStationIds: []
-        };
+        {
+            const newRows = state.rows.slice();
+            
+            // {fromStationId : ?, toStationId : ?}
+            newRows.push(action.payload.addedRow);
+            
+            const fares = [];
+            const fareSum = generateFares(newRows,fares,state.isIc);
+            
+            return {
+                ...state,
+                rows: newRows,
+                fromQuery: '',
+                toQuery: '',
+                fromStationIds: [],
+                toStationIds: [],
+                fares: fares,
+                fareSum: fareSum
+            };
+        }
+
+    case 'ROW_DELETED':
+        {
+            const newRows = state.rows.slice();
+            newRows.splice(action.payload.idx,1);
+        
+            const fares = [];
+            const fareSum = generateFares(newRows,fares,state.isIc);
+
+            return {
+                ...state,
+                rows: newRows,
+                fares: fares,
+                fareSum: fareSum
+            };
+        }
+
+    case 'SET_IS_IC':
+        {
+            const newIsIc = action.payload.isIc;
+            
+            const fares = [];
+            const fareSum = generateFares(state.rows,fares,newIsIc);
+
+            return {
+                ...state,
+                isIc: newIsIc,
+                fares: fares,
+                fareSum: fareSum
+            };
+        }
         
     default:
         return {

@@ -33,3 +33,21 @@ export const onAddRow = (addedRow) => {
         }
     };
 };
+
+export const onDeleteRow = idx => {
+    return {
+        type: 'ROW_DELETED',
+        payload: {
+            idx: idx
+        }
+    };
+};
+
+export const setIsIc = isIc => {
+    return {
+        type: 'SET_IS_IC',
+        payload: {
+            isIc: isIc
+        }
+    };
+};
