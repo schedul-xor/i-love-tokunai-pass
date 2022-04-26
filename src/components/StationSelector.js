@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import {onStationIdxSelect} from '../actions';
+import OpenJprailFares from '../openjprailfares';
 
 class StationSelector extends Component{
     __onSelect(e){
@@ -11,7 +12,7 @@ class StationSelector extends Component{
     render(){
         return (<select onChange={(e)=>{this.__onSelect(e);}}>{
                 this.props.stationIds.map((stationId,idx)=>{
-                    return (<option value={idx}>{stationId}</option>);
+                    return (<option value={idx}>{OpenJprailFares.stationId2name(stationId)}</option>);
                 })
         }
             </select>);
