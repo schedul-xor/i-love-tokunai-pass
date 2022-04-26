@@ -12,7 +12,7 @@ const generateFares = (newRows,fares,isIc) => {
 };
 
 export default(state={
-    isIc: false,
+    isIc: true,
     fromQuery: '',
     toQuery: '',
     fromStationIds: [],
@@ -43,7 +43,6 @@ export default(state={
                 toQuery: action.payload.query
             };
         }
-        break;
 
     case 'STATION_IDX_SELECTED':
         if(action.payload.isFrom){
@@ -57,7 +56,6 @@ export default(state={
                 selectedToStationIdx: action.payload.idx
             };
         }
-        break;
 
     case 'ROW_ADDED':
         {
@@ -116,6 +114,5 @@ export default(state={
         return {
             ...state
         };
-        break;
     }
 };
