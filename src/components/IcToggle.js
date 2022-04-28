@@ -8,7 +8,7 @@ class IcToggle extends Component{
     }
     
     render(){
-        return (<input type="checkbox" checked={this.props.isIc} onChange={e=>this.__onToggleButton(e)}/>);
+        return (<div>Use IC: <input type="checkbox" checked={this.props.isIc} onChange={e=>this.__onToggleButton(e)}/></div>);
     }
 }
 
